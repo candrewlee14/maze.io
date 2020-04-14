@@ -30,7 +30,7 @@ var players = {}
 Socketio.on("connection", socket => {
     var id = uuidv4()
     console.log("new player with id: " + id);
-    players[id] = {position: {x:0, y:0}, destPos: {x:0, y:0}, color:[255,255,255], id: id, moveAmount: {x: 0, y: 0 }, isMoving: false};
+    players[id] = {position: {x:0, y:0}, destPos: {x:0, y:0}, color:[255,255,255], id: id, moveAmount: {x: 0, y: 0 }, isMoving: false, name: ""};
     //TODO emit uuid for current player
     socket.emit("player_id", id);
     //TODO emit full maze
