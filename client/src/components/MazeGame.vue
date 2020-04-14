@@ -12,6 +12,7 @@
     name: 'MazeGame',
     data() {
       return {
+        player_id: {},
         socket: {},
         context: {},
         maze: {},
@@ -28,6 +29,7 @@
     methods: {
       setup(sk){
         sk.createCanvas(window.innerWidth-10, window.innerHeight-10);
+        sk.noStroke();
       },
       draw(sk) {
         sk.background(100,100,100);
@@ -35,8 +37,18 @@
         // draw a line between the previous
         // and the current mouse position
         sk.fill(255,255,255); 
-        sk.ellipse(this.position.x,this.position.y, 100, 100);
         sk.text("FPS: "+(Math.round(this.fps * 100) / 100).toFixed(2),10,10);
+
+        if (this.players != null){
+          for (var key_id in this.players) {
+            var player = this.players[key_id];
+            sk.ellipse(player.position.x, player.position.y, 30, 30);
+          }
+
+          sk.fill(255,0,0);
+          var current_player = this.players[this.player_id];
+          sk.ellipse(current_player.position.x, current_player.position.y, 30, 30);
+        }
       },
       keypressed(sk) {
         // convert the key code to it's string
@@ -70,12 +82,15 @@
     created(){
       this.socket = io("http://localhost:3000");
       setInterval(this.getFPS, 1000);
-
     },
     mounted() {
-      this.socket.on("position", data => {
-        console.log("recieved new position");
-        this.position = data;
+      this.socket.on("update", data => {
+        console.log("recieved updated positions");
+        this.players = data;
+      });
+      this.socket.on("player_id", data => {
+        console.log("recieved current player id");
+        this.player_id = data;
       });
     },
   }
