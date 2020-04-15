@@ -4,7 +4,7 @@ const Socketio = require("socket.io")(Http);
 const { v4: uuidv4 } = require('uuid');
 
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const SECOND = 1000;
 const HBPS = 30;
 const MOVE_TIME = .1;
@@ -64,9 +64,10 @@ Socketio.on("connection", socket => {
 });
 
 
-Http.listen(PORT, () => {
-    console.log("Listening at :3000...");
-});
+Http.listen(PORT, function () {  //Updated
+    var addr = Http.address();
+    console.log('   app listening on http://' + addr.address + ':' + addr.port);
+  });
 
 setInterval(()=>{
     var anyChanged = false;
