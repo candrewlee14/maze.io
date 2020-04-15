@@ -14,7 +14,6 @@
     "client_build": "cd client && npm run build",
     "server_start": "cd server && npm run start",
     "client_start": "cd client && npm run serve",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm-run-all -p server_start client_start",
     "build": "npm-run-all -p server_build client_build"
   },
