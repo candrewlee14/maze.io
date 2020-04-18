@@ -8,15 +8,23 @@
     "socket.io": "^2.3.0",
     "vue": "^2.6.11"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-vue": "^6.2.2"
+  },
   "scripts": {
     "server_build": "cd server && npm run build",
     "client_build": "cd client && npm run build",
     "server_start": "cd server && npm run start",
     "client_start": "cd client && npm run serve",
     "install_all": "npm install && cd server && npm install && cd ../client && npm install",
-    "start": "npm run client_start",
-    "build": "npm-run-all -p server_build client_build"
+    "start_all": "npm run-all -p server_start client_start",
+    "build_all": "npm-run-all -p server_build client_build"
   },
   "repository": {
     "type": "git",

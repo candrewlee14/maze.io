@@ -4,6 +4,8 @@
 </template>
 
 <script>
+  //const Player = require('../../../models/player.js')
+  const Maze = require('../../../models/maze.js');
   import VueP5 from 'vue-p5';
   import io from "socket.io-client";
   //var width = window.innerWidth;
@@ -21,6 +23,7 @@
         framecount: 0,
         fps: 0,
         secondsElapsed: 0,
+        mazeAssigned: false
       }
     },
     components: {
@@ -33,6 +36,9 @@
       },
       draw(sk) {
         sk.background(100,100,100);
+        if (this.mazeAssigned){
+          this.maze.display(sk);
+        }
         this.framecount++;
         // draw a line between the previous
         // and the current mouse position
@@ -92,6 +98,11 @@
         console.log("recieved current player id");
         this.player_id = data;
       });
+      this.socket.on("maze", data => {
+        console.log(data);
+        this.maze = new Maze(50,50,600,400,60,40);
+        this.mazeAssigned = true;
+      })
     },
   }
 </script>
