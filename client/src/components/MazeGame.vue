@@ -100,7 +100,8 @@
       });
       this.socket.on("maze", data => {
         console.log(data);
-        this.maze = new Maze(50,50,600,400,60,40);
+        this.maze = new Maze();
+        this.maze.convertFromObj(data);
         this.mazeAssigned = true;
       })
     },

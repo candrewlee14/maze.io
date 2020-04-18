@@ -2,23 +2,26 @@ const EllipseOrLine = require('./ellipseorline.js');
 module.exports =
     class Maze {
         constructor(x, y, width, height, cellsX, cellsY) {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.cellsX = cellsX;
-            this.cellsY = cellsY;
-            this.maze = this.makeGrid(x, y, width, height, cellsX, cellsY);
-            this.aldousBroderCarvePath(1, 1);
-            this.openEnds();
+            if (arguments.length > 0){
+                this.x = x;
+                this.y = y;
+                this.width = width;
+                this.height = height;
+                this.cellsX = cellsX;
+                this.cellsY = cellsY;
+                this.maze = this.makeGrid(x, y, width, height, cellsX, cellsY);
+                this.aldousBroderCarvePath(1, 1);
+                this.openEnds();
+            }
         }
 
 
         convertFromObj(obj) {
             for (var prop in obj) {
                 if (prop == "maze") {
-                    for (var y = 0; y < this.maze.length; y++) {
-                        for (var x = 0; x < this.maze[0].length; x++) {
+                    this.maze = this.makeGrid(obj['x'], obj['y'], obj['width'], obj['height'], obj['cellsX'], obj['cellsY']);
+                    for (var y = 0; y < obj['maze'].length; y++) {
+                        for (var x = 0; x < obj['maze'][0].length; x++) {
                             this.maze[y][x].convertFromObj(obj[prop][y][x]);
                         }
                     }

@@ -11,13 +11,7 @@ module.exports = class EllipseOrLine {
     }
 
     convertFromObj(obj) {
-        if (obj.type == 2) {
-            this.type = 2;
-        }
-
-        if (obj.type == 3) {
-            this.type = 3;   
-        }
+        obj && Object.assign(this, obj);
     }
 
     display(sk) {
